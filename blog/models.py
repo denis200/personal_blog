@@ -1,9 +1,8 @@
 from django.db import models
-from users.models import User
 
 class Blog(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    post_count = models.PositiveIntegerField(verbose_name="Количество постов")
+    user = models.OneToOneField(to='users.User', on_delete=models.CASCADE)
+    post_count = models.PositiveIntegerField(verbose_name="Количество постов",default=0)
 
 
 class Post(models.Model):
@@ -15,4 +14,4 @@ class Post(models.Model):
 
 class ViewPost(models.Model):
     post = models.ForeignKey(Post,on_delete = models.CASCADE,related_name='views')
-    user = models.ForeignKey(User,on_delete= models.DO_NOTHING,related_name='users')
+    user = models.ForeignKey(to='users.User',on_delete= models.DO_NOTHING,related_name='users')

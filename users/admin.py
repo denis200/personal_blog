@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import User
+from .models import User, UserFollowing
 
 
 class UserAdmin(BaseUserAdmin):
@@ -25,6 +25,9 @@ class UserAdmin(BaseUserAdmin):
         "is_staff",
         "is_active",
     ]
+    add_fieldsets = BaseUserAdmin.add_fieldsets + (
+        (None, {'fields': ('email',)}),
+    )
     fieldsets = (
         (
             _("Login Credentials"),
@@ -61,3 +64,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
+
+@admin.register(UserFollowing)
+class UserFollowingAdmin(admin.ModelAdmin):
+    list_display =('id','user_id','following_user_id')
