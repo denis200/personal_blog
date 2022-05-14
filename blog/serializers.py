@@ -10,8 +10,7 @@ class PostSerializer(serializers.ModelSerializer):
 class ListPostSerializer(serializers.ModelSerializer):
     """ Список постов
     """
-    user = serializers.ReadOnlyField(source='users.username')
 
     class Meta:
         model = models.Post
-        fields = ("id", "created", "user", "title", "text")
+        fields = ("id", "created", "blog", "title", "text")
