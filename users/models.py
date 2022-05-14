@@ -37,6 +37,6 @@ class UserFollowing(models.Model):
 
 
 @receiver(post_save, sender=User)
-def save_profile(sender, instance,created ,**kwargs):
+def save_user(sender, instance,created ,**kwargs):
     if created:
         Blog.objects.create(user = instance)

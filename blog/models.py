@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Blog(models.Model):
     user = models.OneToOneField(to='users.User', on_delete=models.CASCADE)
     post_count = models.PositiveIntegerField(verbose_name="Количество постов",default=0)
