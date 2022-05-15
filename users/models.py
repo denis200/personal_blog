@@ -4,13 +4,14 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
-
 from blog.models import Blog
+from users.utils import create_task
 
 from .managers import CustomUserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """ Модель пользователя """
     username = models.CharField(verbose_name=_("Username"), max_length=255, unique=True)
     email = models.EmailField(verbose_name=_("Email Address"), unique=True)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -30,7 +31,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
+
 class UserFollowing(models.Model):
+    """ Модель подписки на блог """
     blog = models.ForeignKey(Blog,on_delete=models.DO_NOTHING, related_name="following")
     following_user_id = models.ForeignKey(User,on_delete=models.DO_NOTHING, related_name="followers")
     created = models.DateTimeField(auto_now_add=True)
@@ -38,5 +41,9 @@ class UserFollowing(models.Model):
 
 @receiver(post_save, sender=User)
 def save_user(sender, instance,created ,**kwargs):
+    """ При создании пользователя создается блог,
+        а также начинается рассылка последних постов
+    """
     if created:
         Blog.objects.create(user = instance)
+        create_task(instance.id)

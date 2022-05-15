@@ -1,10 +1,9 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_delete
-
 from blog.models import Blog, Post
 
+""" Сигналы для управления подсчета постов,добавляемых в блог"""
 
-#заменить на create post
 # @receiver(post_save, sender=Post)
 # def save_post(sender, instance,created ,**kwargs):
 #     if created:

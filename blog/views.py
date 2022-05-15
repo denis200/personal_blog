@@ -5,8 +5,7 @@ from .services import feed_service
 
 
 class PostView(viewsets.ModelViewSet):
-    
-    """ CRUD карточек товара"""
+    """ CRUD постов"""
     serializer_class = serializers.PostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -15,10 +14,10 @@ class PostView(viewsets.ModelViewSet):
 
 
 class FeedView(viewsets.GenericViewSet):
-    """ View follower`s feed
+    """ Вывод ленты постов пользователя, 
+        на которых он подписан
     """
     permission_classes = [permissions.IsAuthenticated]
-    # serializer_class = serializers.ListPostSerializer
     serializer_class = serializers.ListPostSerializer
 
     def list(self, request, *args, **kwargs):
@@ -29,7 +28,8 @@ class FeedView(viewsets.GenericViewSet):
 
 
 class ReadPostView(views.APIView):
-    """ Пометить пост прочитанным
+    """ Пометить пост прочитанным/
+    убрать пост из списка прочитанных
     """
     permission_classes = [permissions.IsAuthenticated]
     def post(self, request, pk):

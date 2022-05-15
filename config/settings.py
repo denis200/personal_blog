@@ -33,12 +33,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party apps
     "rest_framework",
     "djoser",
     "rest_framework_simplejwt",
+    "django_celery_beat",
     'mixer',
 
-
+    # local apps
     'blog',
     'users',
 ]
@@ -164,3 +166,8 @@ DJOSER = {
         "user_delete": "djoser.serializers.UserDeleteSerializer",
     },
 }
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
