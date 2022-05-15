@@ -67,4 +67,4 @@ admin.site.register(User, UserAdmin)
 
 @admin.register(UserFollowing)
 class UserFollowingAdmin(admin.ModelAdmin):
-    list_display =('id','user_id','following_user_id')
+    list_display =('id','blog','following_user_id')

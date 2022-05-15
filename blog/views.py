@@ -18,10 +18,11 @@ class FeedView(viewsets.GenericViewSet):
     """ View follower`s feed
     """
     permission_classes = [permissions.IsAuthenticated]
+    # serializer_class = serializers.ListPostSerializer
     serializer_class = serializers.ListPostSerializer
 
     def list(self, request, *args, **kwargs):
-        queryset = feed_service.get_post_list(request.user.id)
+        queryset = feed_service.get_post_list(request.user)
         page = self.paginate_queryset(queryset)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)

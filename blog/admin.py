@@ -10,7 +10,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display =('id','title','text','created')
+    list_display =('id','title','text','created','blog')
 
 
 @admin.register(ViewPost)

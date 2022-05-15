@@ -31,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class UserFollowing(models.Model):
-    user_id = models.ForeignKey(User,on_delete=models.DO_NOTHING, related_name="following")
+    blog = models.ForeignKey(Blog,on_delete=models.DO_NOTHING, related_name="following")
     following_user_id = models.ForeignKey(User,on_delete=models.DO_NOTHING, related_name="followers")
     created = models.DateTimeField(auto_now_add=True)
 
