@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "djoser",
     "rest_framework_simplejwt",
+    'mixer',
 
 
     'blog',
@@ -138,7 +139,8 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    
 }
 
 SIMPLE_JWT = {
@@ -148,7 +150,7 @@ SIMPLE_JWT = {
     ),
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=400),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "SIGNING_KEY": 'da68582ad795f3411232e11ef26648d8014902e64a7ff189e76ac0a6d099c043',
+    "SIGNING_KEY": env("SIGNING_KEY"),
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }

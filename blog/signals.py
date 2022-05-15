@@ -4,6 +4,7 @@ from django.db.models.signals import post_save,pre_delete
 from blog.models import Blog, Post
 
 
+#заменить на create post
 @receiver(post_save, sender=Post)
 def save_post(sender, instance,created ,**kwargs):
     if created:
