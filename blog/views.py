@@ -1,4 +1,4 @@
-from rest_framework import viewsets,permissions,response,status,views
+from rest_framework import viewsets,permissions,response,views
 from blog.models import Post, ViewPost
 from . import serializers
 from .services import feed_service
@@ -40,7 +40,7 @@ class ReadPostView(views.APIView):
         obj, created = ViewPost.objects.get_or_create(post=post, user=request.user)
         if not created:
             return response.Response({'Warning':'You have already seen this post'},status=403)
-        return response.Response({'Success':'This post is viewed'},status=201)
+        return response.Response({'Success':'You viewed the post'},status=201)
     
     def delete(self, request, pk):
         try:
