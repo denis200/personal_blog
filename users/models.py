@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from blog.models import Blog
+from profiles.models import Profile
 from users.utils import create_task
 
 from .managers import CustomUserManager
@@ -46,4 +47,5 @@ def save_user(sender, instance,created ,**kwargs):
     """
     if created:
         Blog.objects.create(user = instance)
+        Profile.objects.create(user = instance)
         create_task(instance.id)
